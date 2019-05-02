@@ -6,7 +6,7 @@ const app = require('./app')();
 const server = express();
 server.use(bodyParser.json());
 server.use(express.static('./public'));
-const host = "127.0.0.1";
+const host = "localhost";
 const port = 80;
 server.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, '.', 'public', 'views', 'index.html'));
