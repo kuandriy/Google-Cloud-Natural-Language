@@ -1,0 +1,7 @@
+{
+    "google": {
+        "projectId": "test-bq-a11",
+        "keyFilename": "test_bq-09b9db259951.json"
+    },
+    "text_type": "PLAIN_TEXT"
+}
