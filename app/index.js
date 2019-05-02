@@ -8,7 +8,7 @@ class Service {
     async analyze_text(data) {
         // Instantiates a client
         let responce = {};
-        const client = new language.LanguageServiceClient(this.config.google);
+        const client = new language.LanguageServiceClient();
 
         const document = {
             content: data.text,
