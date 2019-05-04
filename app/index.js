@@ -7,37 +7,37 @@ class Service {
     }
     async analyze_text(data) {
         // Instantiates a client
-        let responce = {};
         const client = new language.LanguageServiceClient();
-
-        const document = {
+        let responce = {};
+        //Over all text
+        let document = {
             content: data.text,
             type: this.config.text_type,
         };
 
-        // Detects the sentiment of the text
-        const [sentiment_result, sentiment_error] = await client.analyzeSentiment({ document: document });
-        if (sentiment_error) {
-            return { error: sentiment_error, result: null };
+        let [result, error] = await client.analyzeSentiment({ document: document });
+        if (error) {
+            return { error: error, result: null };
         }
-        const sentiment = sentiment_result.documentSentiment;
+        responce["Entire Document"] = result.documentSentiment
+        
+        //Each word
+        for(let word of data.text.split(" ")) {
+            let document = {
+                content: word,
+                type: this.config.text_type,
+            };
 
-        responce.sentiment = sentiment
-
-        // Detects syntax in the document
-        const [syntax_result, syntax_error] = await client.analyzeSyntax({ document: document });
-        if (syntax_error) {
-            return { error: syntax_error, result: null };
-        }  
-    
-        syntax_result.tokens.forEach(part => {
-            responce[part.text.content] = { tag: part.partOfSpeech.tag };
-            responce[part.text.content].morphology =  part.partOfSpeech;
-        });
+            let [result, error] = await client.analyzeSentiment({ document: document });
+            if (error) {
+                return { error: error, result: null };
+            }
+            responce[word] = result.documentSentiment
+        }
 
         return { error: null, result: responce };
-
     }
+
 }
 module.exports = function (options) {
     return new Service(options);

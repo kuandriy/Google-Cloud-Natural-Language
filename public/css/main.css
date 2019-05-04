@@ -1,0 +1,12 @@
+body {
+    padding: 10px;
+}
+.text-center{
+    text-align: center
+}
+.table-row, .result-row{
+    margin-top: 45px;
+}
+.table{
+    visibility: hidden;
+}
