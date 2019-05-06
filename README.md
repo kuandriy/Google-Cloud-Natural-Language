@@ -1,4 +1,5 @@
 # Google-Cloud-Natural-Language
 Google Cloud Natural Language Test
 
-Node APP to test Google Cloud Natural Language.
+Analyze user sentiment with Google Cloud Natural Language
+Example: http://ec2-54-80-194-71.compute-1.amazonaws.com/
