@@ -1,3 +1,5 @@
 {
-  "text_type": "PLAIN_TEXT"
+  "text_type": "PLAIN_TEXT",
+  "language_code" : "en",
+  "region": "us-east-1"
 }

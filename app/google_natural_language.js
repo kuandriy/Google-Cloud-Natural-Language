@@ -14,9 +14,8 @@ class Service {
             type: this.config.text_type,
         };
 
-        let result;
         try {
-            [result] = await client.analyzeSentiment({ document: document });
+            let [result] = await client.analyzeSentiment({ document: document });
             responce["Entire Document"] = result.documentSentiment
         }
         catch (error) {
@@ -24,25 +23,28 @@ class Service {
         }
 
         //Each word
+        let word_process = [];
+        let words = [];
         for (let word of data.text.split(" ")) {
             let document = {
                 content: word,
                 type: this.config.text_type,
             };
-            Promise.all()
-            try {
-                [result] =  await client.analyzeSentiment({ document: document });
-                console.log(result);
-                responce[word] = result.documentSentiment
-            }
-            catch (error) {
-                return { error: error, result: null };
-            }
+            words.push(word);
+            word_process.push(client.analyzeSentiment({ document: document }))
         }
-        return { error: null, result: responce };
+        return await Promise.all(word_process).then(values => {
+            for (let i = 0; i < words.length; i++) {
+                responce[words[i]] = values[i][0].documentSentiment;
+            }
+            return { error: null, result: responce };
+        }
+        ).catch(error => {
+            return { error: error, result: null };
+        });
     }
 
 }
 module.exports = function () {
     return new Service();
-};
+}; 

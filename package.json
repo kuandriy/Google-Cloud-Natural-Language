@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@google-cloud/language": "^2.1.0",
+    "aws-sdk": "^2.451.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.1",
     "nodemon": "^1.17.5"
